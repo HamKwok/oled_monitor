@@ -1,0 +1,37 @@
+{
+    "i2c_port": 3,
+    "oled_address": 60,
+    "scan_interval": 1,
+    "reconnect_interval": 2,
+    "width": 128,
+    "height": 64,
+    "display_rows": 5,
+    "row_spacing": 2,
+    "web_port": 8080,
+    "web_enabled": true,
+    "display_settings": {
+        "enabled": true,
+        "start_hour": 10,
+        "end_hour": 23
+    },
+    "smart_wake": {
+        "enabled": true,
+        "cpu_usage_threshold": 5,
+        "network_speed_threshold": 100,
+        "memory_usage_threshold": 30,
+        "cpu_freq_threshold": 1000,
+        "check_interval": 10
+    },
+    "sleep_settings": {
+        "enabled": true,
+        "start_hour": 23,
+        "end_hour": 6,
+        "sleep_start_hour": 1,
+        "sleep_end_hour": 9
+    },
+    "temperature_paths": [
+        "/sys/class/thermal/thermal_zone0/temp",
+        "/sys/class/hwmon/hwmon0/temp1_input",
+        "/sys/class/hwmon/hwmon1/temp1_input"
+    ]
+}

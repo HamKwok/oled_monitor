@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>系统监控面板</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 系统监控面板</h1>
+            <p>实时监控系统状态和性能指标</p>
+            <div class="nav">
+                <a href="/" class="nav-link active">监控面板</a>
+                <a href="/settings" class="nav-link">系统设置</a>
+            </div>
+        </div>
+        
+        <div class="cards">
+            <div class="card">
+                <h2>📊 系统概览</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">当前时间</span>
+                        <span class="info-value" id="current-time">--:--:--</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">运行时长</span>
+                        <span class="info-value" id="uptime">--</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">OLED状态</span>
+                        <span class="info-value">
+                            <span class="status-indicator" id="oled-status"></span>
+                            <span id="oled-text">离线</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🔧 CPU 状态</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">使用率</span>
+                        <span class="info-value" id="cpu-usage">--%</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">频率</span>
+                        <span class="info-value" id="cpu-freq">-- MHz</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">温度</span>
+                        <span class="info-value" id="cpu-temp">--°C</span>
+                    </div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill cpu-progress" id="cpu-progress" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>💾 内存状态</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">使用率</span>
+                        <span class="info-value" id="mem-usage">--%</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">已用/总计</span>
+                        <span class="info-value" id="mem-usage-detail">-- GB / -- GB</span>
+                    </div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill mem-progress" id="mem-progress" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🌐 网络状态</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">IP地址</span>
+                        <span class="info-value" id="ip-address">--</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">网络接口</span>
+                        <span class="info-value" id="network-name">--</span>
+                    </div>
+                    <div class="network-stats">
+                        <div class="info-item">
+                            <span class="info-label">⬆️ 上传</span>
+                            <span class="info-value" id="upload-speed">--</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">⬇️ 下载</span>
+                            <span class="info-value" id="download-speed">--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="last-update">
+            最后更新: <span id="last-update-time">--</span>
+        </div>
+        <div class="refresh-info">
+            数据每3秒自动更新
+        </div>
+    </div>
+
+    <script src="static/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>系统设置</title>
+    <link rel="stylesheet" href="static/style.css">
+    <style>
+        .settings-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .settings-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .settings-section h2 {
+            color: #4a5568;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #4a5568;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        .form-row .form-group {
+            flex: 1;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .checkbox-group input {
+            width: auto;
+        }
+        .buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .btn-primary {
+            background: #4299e1;
+            color: white;
+        }
+        .btn-secondary {
+            background: #a0aec0;
+            color: white;
+        }
+        .btn-success {
+            background: #48bb78;
+            color: white;
+        }
+        .nav {
+            margin-top: 15px;
+        }
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            padding: 5px 15px;
+            border-radius: 20px;
+            transition: background 0.3s;
+        }
+        .nav-link.active {
+            background: rgba(255,255,255,0.2);
+        }
+        .nav-link:hover {
+            background: rgba(255,255,255,0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚙️ 系统设置</h1>
+            <p>修改监控参数和显示设置</p>
+            <div class="nav">
+                <a href="/" class="nav-link">监控面板</a>
+                <a href="/settings" class="nav-link active">系统设置</a>
+            </div>
+        </div>
+        
+        <div class="settings-container">
+            <form id="settings-form">
+                <!-- 基本设置 -->
+                <div class="settings-section">
+                    <h2>基本设置</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="i2c_port">I2C端口</label>
+                            <input type="number" id="i2c_port" name="i2c_port" min="0" max="10" step="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="oled_address">OLED地址</label>
+                            <input type="number" id="oled_address" name="oled_address" min="0" max="127" step="1">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="scan_interval">扫描间隔(秒)</label>
+                            <input type="number" id="scan_interval" name="scan_interval" min="0.1" max="10" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label for="reconnect_interval">重连间隔(秒)</label>
+                            <input type="number" id="reconnect_interval" name="reconnect_interval" min="0.1" max="10" step="0.1">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="web_port">Web端口</label>
+                            <input type="number" id="web_port" name="web_port" min="1000" max="65535" step="1">
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="web_enabled" name="web_enabled">
+                            <label for="web_enabled">启用Web服务器</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 显示设置 -->
+                <div class="settings-section">
+                    <h2>显示设置</h2>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="display_enabled" name="display_enabled">
+                        <label for="display_enabled">启用时间段显示</label>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="display_start_hour">显示开始时间</label>
+                            <input type="number" id="display_start_hour" name="display_start_hour" min="0" max="23" step="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="display_end_hour">显示结束时间</label>
+                            <input type="number" id="display_end_hour" name="display_end_hour" min="0" max="23" step="1">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 智能唤醒设置 -->
+                <div class="settings-section">
+                    <h2>智能唤醒设置</h2>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="smart_wake_enabled" name="smart_wake_enabled">
+                        <label for="smart_wake_enabled">启用智能唤醒</label>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cpu_usage_threshold">CPU使用率阈值(%)</label>
+                            <input type="number" id="cpu_usage_threshold" name="cpu_usage_threshold" min="0" max="100" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label for="network_speed_threshold">网络速度阈值(KB/s)</label>
+                            <input type="number" id="network_speed_threshold" name="network_speed_threshold" min="0" max="10000" step="1">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="memory_usage_threshold">内存使用率阈值(%)</label>
+                            <input type="number" id="memory_usage_threshold" name="memory_usage_threshold" min="0" max="100" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label for="cpu_freq_threshold">CPU频率阈值(MHz)</label>
+                            <input type="number" id="cpu_freq_threshold" name="cpu_freq_threshold" min="0" max="5000" step="1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="check_interval">检查间隔(秒)</label>
+                        <input type="number" id="check_interval" name="check_interval" min="5" max="300" step="1">
+                    </div>
+                </div>
+
+                <!-- 休眠设置 -->
+                <div class="settings-section">
+                    <h2>休眠设置</h2>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="sleep_enabled" name="sleep_enabled">
+                        <label for="sleep_enabled">启用休眠</label>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="sleep_start_hour">休眠开始时间</label>
+                            <input type="number" id="sleep_start_hour" name="sleep_start_hour" min="0" max="23" step="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="sleep_end_hour">休眠结束时间</label>
+                            <input type="number" id="sleep_end_hour" name="sleep_end_hour" min="0" max="23" step="1">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button type="button" class="btn-secondary" onclick="loadConfig()">重置</button>
+                    <button type="submit" class="btn-success">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // 加载配置
+        function loadConfig() {
+            fetch('/api/config')
+                .then(response => response.json())
+                .then(config => {
+                    // 基本设置
+                    document.getElementById('i2c_port').value = config.i2c_port;
+                    document.getElementById('oled_address').value = config.oled_address;
+                    document.getElementById('scan_interval').value = config.scan_interval;
+                    document.getElementById('reconnect_interval').value = config.reconnect_interval;
+                    document.getElementById('web_port').value = config.web_port;
+                    document.getElementById('web_enabled').checked = config.web_enabled;
+
+                    // 显示设置
+                    document.getElementById('display_enabled').checked = config.display_settings.enabled;
+                    document.getElementById('display_start_hour').value = config.display_settings.start_hour;
+                    document.getElementById('display_end_hour').value = config.display_settings.end_hour;
+
+                    // 智能唤醒设置
+                    document.getElementById('smart_wake_enabled').checked = config.smart_wake.enabled;
+                    document.getElementById('cpu_usage_threshold').value = config.smart_wake.cpu_usage_threshold;
+                    document.getElementById('network_speed_threshold').value = config.smart_wake.network_speed_threshold;
+                    document.getElementById('memory_usage_threshold').value = config.smart_wake.memory_usage_threshold;
+                    document.getElementById('cpu_freq_threshold').value = config.smart_wake.cpu_freq_threshold;
+                    document.getElementById('check_interval').value = config.smart_wake.check_interval;
+
+                    // 休眠设置
+                    document.getElementById('sleep_enabled').checked = config.sleep_settings.enabled;
+                    document.getElementById('sleep_start_hour').value = config.sleep_settings.sleep_start_hour;
+                    document.getElementById('sleep_end_hour').value = config.sleep_settings.sleep_end_hour;
+                })
+                .catch(error => {
+                    console.error('加载配置失败:', error);
+                    alert('加载配置失败');
+                });
+        }
+
+        // 保存配置
+        document.getElementById('settings-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                i2c_port: parseInt(document.getElementById('i2c_port').value),
+                oled_address: parseInt(document.getElementById('oled_address').value),
+                scan_interval: parseFloat(document.getElementById('scan_interval').value),
+                reconnect_interval: parseFloat(document.getElementById('reconnect_interval').value),
+                web_port: parseInt(document.getElementById('web_port').value),
+                web_enabled: document.getElementById('web_enabled').checked,
+                display_settings: {
+                    enabled: document.getElementById('display_enabled').checked,
+                    start_hour: parseInt(document.getElementById('display_start_hour').value),
+                    end_hour: parseInt(document.getElementById('display_end_hour').value)
+                },
+                smart_wake: {
+                    enabled: document.getElementById('smart_wake_enabled').checked,
+                    cpu_usage_threshold: parseFloat(document.getElementById('cpu_usage_threshold').value),
+                    network_speed_threshold: parseFloat(document.getElementById('network_speed_threshold').value),
+                    memory_usage_threshold: parseFloat(document.getElementById('memory_usage_threshold').value),
+                    cpu_freq_threshold: parseFloat(document.getElementById('cpu_freq_threshold').value),
+                    check_interval: parseInt(document.getElementById('check_interval').value)
+                },
+                sleep_settings: {
+                    enabled: document.getElementById('sleep_enabled').checked,
+                    sleep_start_hour: parseInt(document.getElementById('sleep_start_hour').value),
+                    sleep_end_hour: parseInt(document.getElementById('sleep_end_hour').value)
+                }
+            };
+
+            fetch('/api/config', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('配置保存成功');
+                } else {
+                    alert('配置保存失败: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('保存配置失败:', error);
+                alert('保存配置失败');
+            });
+        });
+
+        // 页面加载时获取配置
+        loadConfig();
+    </script>
+</body>
+</html>

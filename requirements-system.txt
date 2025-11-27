@@ -1,0 +1,8 @@
+# 系统包依赖（使用 apt 安装）
+psutil
+python3-flask
+python3-pil
+python3-smbus
+
+# 需要从pip安装的包（如果没有系统包）
+luma.oled>=3.8.0
